@@ -8,7 +8,8 @@ const configureClient = async () => {
   
     auth0 = await createAuth0Client({
       domain: config.domain,
-      client_id: config.clientId
+      client_id: config.clientId,
+      audience: config.audience
     });
   };
 
@@ -43,6 +44,7 @@ window.onload = async () => {
   
     document.getElementById("btn-logout").disabled = !isAuthenticated;
     document.getElementById("btn-login").disabled = isAuthenticated;
+    document.getElementById("btn-call-api").disabled = !isAuthenticated;
 
     if (isAuthenticated) {
         document.getElementById("gated-content").classList.remove("hidden");
@@ -70,4 +72,27 @@ window.onload = async () => {
       auth0.logout({
           returnTo: window.location.origin
       });
+  };
+
+  const callApi = async () => {
+      try {
+
+        const token = await auth0.getTokenSilently();
+
+        const response = await fetch("/api/external", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        const responseData = await response.json();
+
+        const responseElement = document.getElementById("api-call-result");
+
+        responseElement.innertext = JSON.stringify(responseData, {}, 2);
+
+      } catch (e) {
+
+        console.error(e);
+      }
   };
