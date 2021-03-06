@@ -1,4 +1,5 @@
 {
     "domain": "dev-v43ce08t.us.auth0.com",
-    "clientId": "LIK4W7mUOdPAvNGJSMX0IQah3g5tBd4d"
+    "clientId": "LIK4W7mUOdPAvNGJSMX0IQah3g5tBd4d",
+    "audience": "https://dev-v43ce08t.us.auth0.com/api/v2/"
   }
