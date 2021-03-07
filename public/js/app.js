@@ -74,25 +74,48 @@ window.onload = async () => {
       });
   };
 
+
   const callApi = async () => {
-      try {
 
-        const token = await auth0.getTokenSilently();
+    const user = await auth0.getUser();
 
-        const response = await fetch("/api/external", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
+    if(user.email_verified){
 
-        const responseData = await response.json();
 
+    try {
+  
+      // Get the access token from the Auth0 client
+      const token = await auth0.getTokenSilently();
+  
+      // Make the call to the API, setting the token
+      // in the Authorization header
+      const response = await fetch("/api/external", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+  
+      // Fetch the JSON result
+      const responseData = await response.json();
+  
+      // Display the result in the output element
+      const responseElement = document.getElementById("api-call-result");
+  
+      responseElement.innerText = JSON.stringify(responseData, {}, 2);
+  
+  } catch (e) {
+      // Display errors in the console
+      console.error(e);
+    }
+
+}
+    else {
         const responseElement = document.getElementById("api-call-result");
 
-        responseElement.innertext = JSON.stringify(responseData, {}, 2);
+        responseElement.innerText = "Please verify your email address"
 
-      } catch (e) {
-
-        console.error(e);
-      }
+    }
   };
+
+
+  
