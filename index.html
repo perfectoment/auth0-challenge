@@ -11,25 +11,21 @@
     <p>Welcome to our page!</p>
     <button id="btn-login" disabled="true" onclick="login()">Log in</button>
     <button id="btn-logout" disabled="true" onclick="logout()">Log out</button>
-    <button id="btn-call-api" disabled="true" onclick="callApi()">Call Api</button>
-    <button id="btn-info" onclick="consoleLog()">see</button>
-      <label>
-        Api result:
-      <pre id="api-call-result"></pre>
-      </label>
 
     <div class="hidden" id="gated-content">
       <p>
         You're seeing this content because you're currently
         <strong>logged in</strong>.
       </p>
+    
+      <label for ="pizza">What Type of Pizza Would You Like?</label>
+      <input id="pizzaType" type="text" name="pizza">
+      <button id="btn-call-api" disabled="true" onclick="callApi()">Place Pizza Order</button>
       <label>
-        Access token:
-        <pre id="ipt-access-token"></pre>
-      </label>
-      <label>
-        User profile:
-        <pre id="ipt-user-profile"></pre>
+        Api result:
+      <pre id="api-call-result"></pre>
+      Order Confirmed:
+      <pre id="userUpdate"></pre>
       </label>
     </div>
 

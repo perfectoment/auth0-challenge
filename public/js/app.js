@@ -1,3 +1,5 @@
+// const { get } = require("../../server");
+
 let auth0 = null;
 
 const fetchAuthConfig = () => fetch("/auth_config.json");
@@ -76,29 +78,53 @@ window.onload = async () => {
 
 
   const callApi = async () => {
-
+    //defining user data JSON 
     const user = await auth0.getUser();
-
-    if(user.email_verified){
+    //Validating if the email_validated = true
+   if(user.email_verified){
 
 
     try {
   
       // Get the access token from the Auth0 client
       const token = await auth0.getTokenSilently();
-  
+      const pizza = await document.getElementById("pizzaType").innerText
       // Make the call to the API, setting the token
       // in the Authorization header
+
+      //creating user metadata tag for pizza order storage
+      const pizzaOrder = { "user_metadata" : { "pizza": `${pizza}` } }
+    
       const response = await fetch("/api/external", {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
+
+      const order = await fetch("/api/external", {
+        method:'PATCH',  
+        headers: {
+            Authorization: `Bearer ${token}`
+          },
+        body: {
+             pizzaOrder
+        }  
+        
+
+      })
   
       // Fetch the JSON result
       const responseData = await response.json();
   
       // Display the result in the output element
+      const orderData = await order.json()
+
+      const responseOrder = document.getElementById("userUpdate")
+
+      responseOrder.innerText = JSON.stringify(orderData, {}, 2)
+
+       // Display the result in the output element
+
       const responseElement = document.getElementById("api-call-result");
   
       responseElement.innerText = JSON.stringify(responseData, {}, 2);
@@ -108,11 +134,11 @@ window.onload = async () => {
       console.error(e);
     }
 
-}
-    else {
-        const responseElement = document.getElementById("api-call-result");
+} else {
+        // Displaying result of non-validated email address
+       const responseElement = document.getElementById("api-call-result");
 
-        responseElement.innerText = "Please verify your email address"
+       responseElement.innerText = "Please verify your email address"
 
     }
   };

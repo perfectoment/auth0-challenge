@@ -2,12 +2,23 @@ const express = require("express");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const { join } = require("path");
+// const bodyParser = require('body-parser');
+// const jwtAuthz = require('express-jwt-authz');
+// const cors = require('cors');
+
 const authConfig = require("./auth_config.json");
+
 
 const app = express();
 
+
+
+
 // Serve assets from the /public folder
 app.use(express.static(join(__dirname, "public")));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Create the JWT validation middleware
 const checkJwt = jwt({
@@ -25,11 +36,19 @@ const checkJwt = jwt({
 
 // Create an endpoint that uses the above middleware to
 // protect this route from unauthorized requests
+
 app.get("/api/external", checkJwt, (req, res) => {
   res.send({
     msg: "Your access token was successfully validated!"
   });
 });
+
+app.patch("/api/external", checkJwt, (req, res) => {
+    res.send({
+        msg: "Order Saved"
+    })
+});
+
 
 // Serve the auth configuration file
 app.get("/auth_config.json", (req, res) => {
