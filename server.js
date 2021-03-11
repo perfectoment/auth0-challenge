@@ -41,7 +41,7 @@ app.get("/api/external", checkJwt, (req, res) => {
 
 app.patch("/api/v2/users/:id", checkJwt, (req, res) => {
     res.send({
-        msg: "Order Saved"
+        msg: "Order Saved!"
     })
 });
 

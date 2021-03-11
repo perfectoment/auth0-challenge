@@ -7,12 +7,13 @@
   </head>
 
   <body>
-    <h2>Pizza 42 Proof of Concept</h2>
-    <p>Please order a pizza!</p>
+    <h2 class=center-align>Pizza 42 Proof of Concept</h2>
+    <p class=center-align>Please order a pizza!</p>
+    <div class=center-align>
     <button id="btn-login" disabled="true" onclick="login()">Log in</button>
     <button id="btn-logout" disabled="true" onclick="logout()">Log out</button>
-
-    <div class="hidden" id="gated-content">
+    </div>
+    <div class="hidden center-align " id="gated-content">
       <p>
         You're seeing this content because you're currently
         <strong>logged in</strong>.
@@ -24,7 +25,7 @@
       <label>
         Api result:
       <pre id="api-call-result"></pre>
-      Order Confirmed:
+      Order Saved:
       <pre id="userUpdate"></pre>
       </label>
     </div>
