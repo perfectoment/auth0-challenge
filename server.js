@@ -34,9 +34,7 @@ const checkJwt = jwt({
 // protect this route from unauthorized requests
 
 
-app.get("/*", (req, res) => {
-  res.sendFile(join(__dirname, "index.html"));
-});
+
 
 app.get("/api/external", checkJwt, (req, res) => {
   res.send({
@@ -57,9 +55,9 @@ app.get("/auth_config.json", (req, res) => {
 });
 
 // Serve the index page to everything else
-// app.get("/*", (req, res) => {
-//   res.sendFile(join(__dirname, "index.html"));
-// });
+app.get("/*", (req, res) => {
+  res.sendFile(join(__dirname, "index.html"));
+});
 
 // Error handler
 app.use(function(err, req, res, next) {
@@ -73,7 +71,5 @@ app.use(function(err, req, res, next) {
 app.listen(PORT, function() {
   console.log("App now listening at localhost:" + PORT);
 });
-
-
 
 
