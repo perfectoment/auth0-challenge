@@ -65,7 +65,7 @@ window.onload = async () => {
 
   const login = async () => {
     await auth0.loginWithRedirect({
-      redirect_uri: window.location.origin
+      redirect_uri: "https://calm-ravine-42747.herokuapp.com/"
     });
   };
 
@@ -93,7 +93,7 @@ window.onload = async () => {
 
       //creating user metadata tag for pizza order storage
       const pizzaOrder = {user_metadata: {pizza: `${pizza}`}}
-      //Turning pizza JSON format into a string to be parsed before delivery
+      //Turning pizza JSON format into a string to be parsed 
       const pizzaJSON = await JSON.stringify(pizzaOrder)
     
       const response = await fetch("/api/external", {
