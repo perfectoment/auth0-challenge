@@ -33,6 +33,11 @@ const checkJwt = jwt({
 // Create an endpoint that uses the above middleware to
 // protect this route from unauthorized requests
 
+
+app.get("/*", (req, res) => {
+  res.sendFile(join(__dirname, "index.html"));
+});
+
 app.get("/api/external", checkJwt, (req, res) => {
   res.send({
     msg: "Your access token was successfully validated!"
@@ -52,9 +57,9 @@ app.get("/auth_config.json", (req, res) => {
 });
 
 // Serve the index page to everything else
-app.get("/*", (req, res) => {
-  res.sendFile(join(__dirname, "index.html"));
-});
+// app.get("/*", (req, res) => {
+//   res.sendFile(join(__dirname, "index.html"));
+// });
 
 // Error handler
 app.use(function(err, req, res, next) {
