@@ -12,7 +12,7 @@ const app = express();
 
 // Serve assets from the /public folder
 app.use(express.static(join(__dirname, "public")));
-
+//replacement for currently depreciated body-parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

@@ -93,6 +93,7 @@ window.onload = async () => {
 
       //creating user metadata tag for pizza order storage
       const pizzaOrder = {user_metadata: {pizza: `${pizza}`}}
+      //Turning pizza JSON format into a string to be parsed before delivery
       const pizzaJSON = await JSON.stringify(pizzaOrder)
     
       const response = await fetch("/api/external", {
