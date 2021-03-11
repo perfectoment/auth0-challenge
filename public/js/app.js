@@ -1,4 +1,3 @@
-// const { get } = require("../../server");
 
 let auth0 = null;
 
@@ -80,43 +79,41 @@ window.onload = async () => {
   const callApi = async () => {
     //defining user data JSON 
     const user = await auth0.getUser();
+    console.log(user)
     //Validating if the email_validated = true
    if(user.email_verified){
-
 
     try {
   
       // Get the access token from the Auth0 client
       const token = await auth0.getTokenSilently();
-      const pizza = await document.getElementById("pizzaType").innerText
+      const pizza = await document.getElementById("pizzaType").value
       // Make the call to the API, setting the token
       // in the Authorization header
 
       //creating user metadata tag for pizza order storage
-      const pizzaOrder = { "user_metadata" : { "pizza": `${pizza}` } }
+      const pizzaOrder = {user_metadata: {pizza: `${pizza}`}}
+      const pizzaJSON = await JSON.stringify(pizzaOrder)
     
       const response = await fetch("/api/external", {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-
-      const order = await fetch("/api/external", {
+      //Creating PATCH API call using the token header
+      const order = await fetch(`/api/v2/users/${user.sub}`, {
         method:'PATCH',  
         headers: {
             Authorization: `Bearer ${token}`
           },
-        body: {
-             pizzaOrder
-        }  
-        
-
-      })
+        body: pizzaJSON
+         
+      });
   
       // Fetch the JSON result
       const responseData = await response.json();
   
-      // Display the result in the output element
+      // Display the result in the order output element
       const orderData = await order.json()
 
       const responseOrder = document.getElementById("userUpdate")

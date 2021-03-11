@@ -2,16 +2,12 @@ const express = require("express");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const { join } = require("path");
-// const bodyParser = require('body-parser');
-// const jwtAuthz = require('express-jwt-authz');
-// const cors = require('cors');
+const jwtAuthz = require('express-jwt-authz');
 
 const authConfig = require("./auth_config.json");
 
 
 const app = express();
-
-
 
 
 // Serve assets from the /public folder
@@ -43,7 +39,7 @@ app.get("/api/external", checkJwt, (req, res) => {
   });
 });
 
-app.patch("/api/external", checkJwt, (req, res) => {
+app.patch("/api/v2/users/:id", checkJwt, (req, res) => {
     res.send({
         msg: "Order Saved"
     })
