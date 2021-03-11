@@ -65,7 +65,7 @@ window.onload = async () => {
 
   const login = async () => {
     await auth0.loginWithRedirect({
-      redirect_uri: "https://calm-ravine-42747.herokuapp.com/"
+      redirect_uri: window.location.origin
     });
   };
 
