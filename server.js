@@ -6,7 +6,7 @@ const jwtAuthz = require('express-jwt-authz');
 
 const authConfig = require("./auth_config.json");
 
-
+var PORT = process.env.PORT || 3000;
 const app = express();
 
 
@@ -70,7 +70,9 @@ app.use(function(err, req, res, next) {
   next(err, req, res);
 });
 
-app.listen(3000, () => console.log("Application running on port 3000"));
+app.listen(PORT, function() {
+  console.log("App now listening at localhost:" + PORT);
+});
 
 module.exports = app;
 
